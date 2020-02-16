@@ -22,6 +22,14 @@
       <p>这段话也不会在小程序里显示</p>
       <p>在渲染时会被样式隐藏</p>
     </div>
+    <div class="demo-swipe">
+      <!-- vant 轮播图组件：https://youzan.github.io/vant/#/zh-CN/swipe -->
+      <van-swipe :autoplay="3000">
+        <van-swipe-item v-for="(image, index) in images" :key="index">
+          <img :src="image" />
+        </van-swipe-item>
+      </van-swipe>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -32,9 +40,23 @@ import Header from '../common/Header.vue'
 import Footer from '../common/Footer.vue'
 import Web from 'reduce-loader!../common/Web.vue'
 import 'reduce-loader!./web'
+// import { Swipe, SwipeItem } from 'vant'
+// vant 组件库文档：https://youzan.github.io/vant/#/zh-CN/quickstart
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
+Vue.use(Vant)
 
 export default Vue.extend({
   name: 'Home',
+  data() {
+    return {
+      images: [
+        'https://img.yzcdn.cn/vant/apple-1.jpg',
+        'https://img.yzcdn.cn/vant/apple-2.jpg'
+      ]
+    }
+  },
   components: {
     Header,
     Footer,
@@ -84,5 +106,42 @@ a, button {
   .for-web {
     display: none;
   }
+}
+
+.demo-swipe {
+  padding-bottom: 30px;
+}
+.demo-swipe .van-swipe-item {
+  color: #fff;
+  font-size: 20px;
+  line-height: 150px;
+  text-align: center;
+}
+.demo-swipe .van-swipe-item:nth-child(even) {
+  background-color: #39a9ed;
+}
+.demo-swipe .van-swipe-item:nth-child(odd) {
+  background-color: #66c6f2;
+}
+.demo-swipe .van-swipe img {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 240px;
+  padding: 30px 60px;
+  background-color: #fff;
+  pointer-events: none;
+}
+.demo-swipe--vertical .van-swipe-item {
+  line-height: 200px;
+}
+.demo-swipe .custom-indicator {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.1);
 }
 </style>
